@@ -37,7 +37,7 @@ class FicoScoreApiTest extends \PHPUnit_Framework_TestCase
         $this->apiInstance = new \APIHub\Client\Api\FicoScoreApi($client);
     }
 
-    public function testFicoScore()
+    public function testFicoScoreAPI()
     {
         $x_api_key = "your_api_key";
         $username = "your_username";

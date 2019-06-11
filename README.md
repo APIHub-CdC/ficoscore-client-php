@@ -146,7 +146,7 @@ public function setUp()
 /**
 * Este es el método que se será ejecutado en la prueba ubicado en path/to/repository/test/Api/SegmentadorApiTest.php
 */
-public function testGetValidador()
+public function testFicoScoreAPI()
 {
   $x_api_key = "your_api_key";
   $username = "your_username";
