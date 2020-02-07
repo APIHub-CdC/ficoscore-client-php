@@ -1,25 +1,25 @@
-<?php 
-namespace APIHub\Client\Interceptor;
+<?php
+
+namespace FicoscoreV2\Client\Interceptor;
 
 use \GuzzleHttp\Middleware;
 use \GuzzleHttp\Psr7\Stream;
 use \Psr\Http\Message\RequestInterface as streamRequest;
 use \Psr\Http\Message\ResponseInterface as streamResponse;
 
-use \APIHub\Client\Interceptor\KeyHandler;
-use \APIHub\Client\Interceptor\MyLogger;
-use \APIHub\Client\Model\Errors;
-use \APIHub\Client\Model\Error;
+use \FicoscoreV2\Client\Interceptor\KeyHandler;
+use \FicoscoreV2\Client\Interceptor\MyLogger;
+use \FicoscoreV2\Client\Model\Errors;
+use \FicoscoreV2\Client\Model\Error;
 
 class MiddlewareEvents
 {
     
-    function __construct(\APIHub\Client\Interceptor\KeyHandler $signer)
+    function __construct(\FicoscoreV2\Client\Interceptor\KeyHandler $signer)
     {
         $this->signer = $signer;
         $this->logger = new MyLogger('MiddlewareEvents');
     }
-
     function add_signature_header($header){
         return \GuzzleHttp\Middleware::mapRequest(function (streamRequest $request) use ($header){
             try{
@@ -35,7 +35,6 @@ class MiddlewareEvents
             return $request->withHeader($header, $signature);
         });
     }
-
     function verify_signature_header($header){
         return \GuzzleHttp\Middleware::mapResponse(function (streamResponse $response) use ($header){
             $verified = false;
@@ -52,12 +51,9 @@ class MiddlewareEvents
                     if(isset($response->getHeaders()[$header][0])){
                         $signature = $response->getHeaders()[$header][0];                   
                         $verified = $this->signer->getVerificationFromPublicKey($payload, $signature);
-
                         if(!$verified){
                             $this->logger->error("Could not verify the signature");
                             $this->logger->warning("The response could be modified");
-                            //$new_stream = build_error("403", "No se pudo verificar x-signature de la respuesta");
-                            //$super_response = $response->withBody($new_stream)->withStatus(403);
                         }
                         $super_response = $response;
                     }
@@ -76,19 +72,17 @@ class MiddlewareEvents
                 $super_response = build_error("500", "Error inesperado");
                 $super_response = $response->withBody($new_stream)->withStatus(500);
             }
-
             return $super_response;
         });
     }
 }
 
 function build_error($code, $message){
-    $error = new \APIHub\Client\Model\Error([
+    $error = new \FicoscoreV2\Client\Model\Error([
         "code" => $code,
         "message" => $message
     ]);
-    $errors = new \APIHub\Client\Model\Errores(["errors" => [$error]]);
-
+    $errors = new \FicoscoreV2\Client\Model\Errores(["errors" => [$error]]);
     $resource = fopen('data://text/plain,' . $errors,'r');
     $new_reponse = new \GuzzleHttp\Psr7\Stream($resource);
     

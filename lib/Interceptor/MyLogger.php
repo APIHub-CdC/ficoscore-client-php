@@ -1,5 +1,6 @@
 <?php
-namespace APIHub\Client\Interceptor;
+
+namespace FicoscoreV2\Client\Interceptor;
 
 use \Monolog\Logger;
 use \Monolog\Formatter\LineFormatter;
