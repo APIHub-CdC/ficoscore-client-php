@@ -100,7 +100,7 @@ openssl pkcs12 -name ${ALIAS} \
 * Esto es parte del setUp() de las pruebas unitarias.
 */
 $password = getenv('KEY_PASSWORD');
-$this->signer = new \PLDNaturales\Client\Interceptor\KeyHandler(
+$this->signer = new \FicoscoreV2\Client\Interceptor\KeyHandler(
     "/example/route/keypair.p12",
     "/example/route/cdc_cert.pem",
     $password

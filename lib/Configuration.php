@@ -16,7 +16,7 @@ class Configuration
     
     protected $password = '';
     
-    protected $host = 'https://services.circulodecredito.com.mx/v2/ficoscore';
+    protected $host = '';
     
     protected $userAgent = 'FicoscoreV2-Codegen/1.0.0/php';
     
