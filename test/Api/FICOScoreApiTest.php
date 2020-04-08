@@ -66,7 +66,7 @@ class FICOScoreApiTest extends \PHPUnit_Framework_TestCase
             $result = $this->apiInstance->getReporte($x_api_key, $username, $password, $request);
             print_r($result);
         } catch (Exception $e) {
-            echo 'Exception when calling ApiTest->pld: ', $e->getMessage(), PHP_EOL;
+            echo 'Exception when calling ApiTest->getReporte: ', $e->getMessage(), PHP_EOL;
         }
     }
 }

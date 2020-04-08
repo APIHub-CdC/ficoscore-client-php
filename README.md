@@ -1,4 +1,4 @@
-# Ficoscore V2 Client-php
+# ficoscore-client-php
 La API de FICO Score determina la probabilidad de incumplimiento de un acreditado en los próximos doce meses. A mayor puntaje de score, menor es el riesgo.
 
 ## Requisitos
@@ -141,7 +141,7 @@ public function setUp()
 * Este es el método que se será ejecutado en la prueba ubicado en path/to/repository/test/Api/FICOScoreApiTest.php 
 
 */
-public function testPldNaturales()
+public function testGetReporte()
 {
     $x_api_key = "your_api_key";
     $username = "your_username";
@@ -172,10 +172,10 @@ public function testPldNaturales()
   $request->setPersona($persona);
 
     try {
-        $result = $this->apiInstance->pld($x_api_key, $username, $password, $request);
+        $result = $this->apiInstance->getReporte($x_api_key, $username, $password, $request);
         print_r($result);
     } catch (Exception $e) {
-        echo 'Exception when calling ApiTest->pld: ', $e->getMessage(), PHP_EOL;
+        echo 'Exception when calling ApiTest->getReporte: ', $e->getMessage(), PHP_EOL;
     }
 }
 ?>
