@@ -1,6 +1,5 @@
-# Ficoscore-client-php
-
-Modelo estadístico basado en variables contenidas en el historial crediticio del Cliente, calcula un puntaje matemático que mide el riesgo del Cliente de fallar en sus pagos en un lapso de 12 meses a partir del otorgamiento de un crédito.
+# ficoscore-client-php
+La API de FICO Score determina la probabilidad de incumplimiento de un acreditado en los próximos doce meses. A mayor puntaje de score, menor es el riesgo.
 
 ## Requisitos
 
@@ -30,7 +29,6 @@ Ejecutar: `composer install`
 - Se tiene que tener un contenedor en formato PKCS12.
 - En caso de no contar con uno, ejecutar las instrucciones contenidas en **lib/Interceptor/key_pair_gen.sh** ó con los siguientes comandos.
 - **opcional**: Para cifrar el contenedor, colocar una contraseña en una variable de ambiente.
-
 ```sh
 export KEY_PASSWORD=your_password
 ```
@@ -102,7 +100,7 @@ openssl pkcs12 -name ${ALIAS} \
 * Esto es parte del setUp() de las pruebas unitarias.
 */
 $password = getenv('KEY_PASSWORD');
-$this->signer = new \APIHub\Client\Interceptor\KeyHandler(
+$this->signer = new \FicoscoreV2\Client\Interceptor\KeyHandler(
     "/example/route/keypair.p12",
     "/example/route/cdc_cert.pem",
     $password
@@ -110,75 +108,77 @@ $this->signer = new \APIHub\Client\Interceptor\KeyHandler(
 ```
  > **NOTA:** Sólamente en caso de que el contenedor haya cifrado, se debe colocar la contraseña en una variable de ambiente e indicar el nombre de la misma, como se ve en la imagen anterior.
 
-### Paso 4. Modificar URL
+### Paso 4. Capturar los datos de la petición
 
- Modificar la URL de la petición en ***lib/Configuration.php*** en la línea 19, como se muestra en el siguiente fragmento de código:
+Los siguientes datos a modificar se encuentran en ***test/Api/FICOScoreApiTest.php***
 
- ```php
- protected $host = 'the_url';
- ```
-
-### Paso 5. Capturar los datos de la petición
-
-Es importante contar con el setUp() que se encargará de firmar y verificar la petición.
+Es importante contar con el setUp() que se encargará de inicializar la url, firmar y verificar la petición. Modificar la URL de la petición del objeto ***$config***, como se muestra en el siguiente fragmento de código:
 
 ```php
 <?php
 public function setUp()
 {
-    $password = getenv('KEY_PASSWORD');
-    $this->signer = new \APIHub\Client\Interceptor\KeyHandler(null, null, $password);
-    $events = new \APIHub\Client\Interceptor\MiddlewareEvents($this->signer);
-    $handler = \GuzzleHttp\HandlerStack::create();
-    $handler->push($events->add_signature_header('x-signature'));
-    $handler->push($events->verify_signature_header('x-signature'));
-    
-    $client = new \GuzzleHttp\Client([
-        'handler' => $handler,
-        'verify' => false
-    ]);
-    $this->apiInstance = new \APIHub\Client\Api\FicoScoreApi($client);
+      $password = getenv('KEY_PASSWORD');
+        
+  $this->signer = new \FicoscoreV2\Client\Interceptor\KeyHandler(null, null, $password);     
+
+  $events = new \FicoscoreV2\Client\Interceptor\MiddlewareEvents($this->signer);
+  $handler = \GuzzleHttp\HandlerStack::create();
+  $handler->push($events->add_signature_header('x-signature'));
+  $handler->push($events->verify_signature_header('x-signature'));
+
+  $client = new \GuzzleHttp\Client(['handler' => $handler, 'verify' => false]);
+  $config = new \FicoscoreV2\Client\Configuration();
+  $config->setHost('the_url');
+
+  $this->apiInstance = new \FicoscoreV2\Client\Api\FICOScoreApi($client,$config);
 }    
 ```
 ```php
 
 <?php
 /**
-* Este es el método que se será ejecutado en la prueba ubicado en path/to/repository/test/Api/SegmentadorApiTest.php
+* Este es el método que se será ejecutado en la prueba ubicado en path/to/repository/test/Api/FICOScoreApiTest.php 
+
 */
-public function testFicoScoreAPI()
+public function testGetReporte()
 {
-  $x_api_key = "your_api_key";
-  $username = "your_username";
-  $password = "your_password";
+    $x_api_key = "your_api_key";
+    $username = "your_username";
+    $password = "your_password";
 
-  $request = new \APIHub\Client\Model\Persona();
-  $request->setPrimerNombre("XXXXXXXX");
-  $request->setSegundoNombre(null);
-  $request->setApellidoPaterno("XXXXXXXX");
-  $request->setApellidoMaterno("XXXXXXXX");
-  $request->setApellidoAdicional(null);
-  $request->setFechaNacimiento("YYYY-MM-DD");
-  $request->setRfc("XXXXXXXX");
-  $request->setCurp(null);
 
-  $domicilio = new \APIHub\Client\Model\Domicilio();
-  $domicilio->setDireccion("XXXXXXXX");
-  $domicilio->setColonia("XXXXXXXX");
-  $domicilio->setCiudad("XXXXXXXX");
-  $domicilio->setCodigoPostal("XXXXXXXX");
-  $domicilio->setMunicipio("XXXXXXXX");
-  $domicilio->setEstado("XX");
-  $request->setDomicilio($domicilio);
+  $request = new \FicoscoreV2\Client\Model\Peticion();
 
-  try {
-      $result = $this->apiInstance->ficoscore( $x_api_key, $username, $password, $request);
-      $this->signer->close();
-      print_r($result);
-  } catch (Exception $e) {
-      echo 'Exception when calling FicoScoreApi->getFicoByDatosPersonaUsingPOST: ', $e->getMessage(), PHP_EOL;
-  }
+  $request->setFolio("XXXXXX");
+
+  $persona = new \FicoscoreV2\Client\Model\Persona();
+  $persona->setNombres("XXXXXX");
+  $persona->setApellidoPaterno("XXXXXX");
+  $persona->setApellidoMaterno("XXXXXX");
+  $persona->setFechaNacimiento("DD-MM-YYYY");
+  $persona->setRFC("XXXXXX");
+
+  $domicilio = new \FicoscoreV2\Client\Model\Domicilio();
+  $domicilio->setDireccion("XXXXXX");
+  $domicilio->setColoniaPoblacion("XXXXXX");
+  $domicilio->setCiudad("XXXXXX");
+  $domicilio->setCP("XXXXXX");
+  $domicilio->setDelegacionMunicipio("XXXXXX");
+  $domicilio->setEstado("XXXXXX");
+
+  $persona->setDomicilio($domicilio);
+
+  $request->setPersona($persona);
+
+    try {
+        $result = $this->apiInstance->getReporte($x_api_key, $username, $password, $request);
+        print_r($result);
+    } catch (Exception $e) {
+        echo 'Exception when calling ApiTest->getReporte: ', $e->getMessage(), PHP_EOL;
+    }
 }
+?>
 ```
 ## Pruebas unitarias
 

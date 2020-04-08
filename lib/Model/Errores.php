@@ -5,20 +5,18 @@ namespace FicoscoreV2\Client\Model;
 use \ArrayAccess;
 use \FicoscoreV2\Client\ObjectSerializer;
 
-class Error implements ModelInterface, ArrayAccess
+class Errores implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
     
-    protected static $apihubModelName = 'Error';
+    protected static $apihubModelName = 'Errores';
     
     protected static $apihubTypes = [
-        'codigo' => 'string',
-        'mensaje' => 'string'
+        'errores' => '\FicoscoreV2\Client\Model\Error[]'
     ];
     
     protected static $apihubFormats = [
-        'codigo' => null,
-        'mensaje' => null
+        'errores' => null
     ];
     
     public static function apihubTypes()
@@ -32,18 +30,15 @@ class Error implements ModelInterface, ArrayAccess
     }
     
     protected static $attributeMap = [
-        'codigo' => 'codigo',
-        'mensaje' => 'mensaje'
+        'errores' => 'errores'
     ];
     
     protected static $setters = [
-        'codigo' => 'setCodigo',
-        'mensaje' => 'setMensaje'
+        'errores' => 'setErrores'
     ];
     
     protected static $getters = [
-        'codigo' => 'getCodigo',
-        'mensaje' => 'getMensaje'
+        'errores' => 'getErrores'
     ];
     
     public static function attributeMap()
@@ -72,8 +67,7 @@ class Error implements ModelInterface, ArrayAccess
     
     public function __construct(array $data = null)
     {
-        $this->container['codigo'] = isset($data['codigo']) ? $data['codigo'] : null;
-        $this->container['mensaje'] = isset($data['mensaje']) ? $data['mensaje'] : null;
+        $this->container['errores'] = isset($data['errores']) ? $data['errores'] : null;
     }
     
     public function listInvalidProperties()
@@ -87,25 +81,14 @@ class Error implements ModelInterface, ArrayAccess
         return count($this->listInvalidProperties()) === 0;
     }
     
-    public function getCodigo()
+    public function getErrores()
     {
-        return $this->container['codigo'];
+        return $this->container['errores'];
     }
     
-    public function setCodigo($codigo)
+    public function setErrores($errores)
     {
-        $this->container['codigo'] = $codigo;
-        return $this;
-    }
-    
-    public function getMensaje()
-    {
-        return $this->container['mensaje'];
-    }
-    
-    public function setMensaje($mensaje)
-    {
-        $this->container['mensaje'] = $mensaje;
+        $this->container['errores'] = $errores;
         return $this;
     }
     
