@@ -1,9 +1,9 @@
 <?php
 
-namespace FicoscoreV2\Client\Model;
+namespace FS\MX\Client\Model;
 
 use \ArrayAccess;
-use \FicoscoreV2\Client\ObjectSerializer;
+use \FS\MX\Client\ObjectSerializer;
 
 class Score implements ModelInterface, ArrayAccess
 {
@@ -14,7 +14,7 @@ class Score implements ModelInterface, ArrayAccess
     protected static $apihubTypes = [
         'nombre_score' => 'string',
         'valor' => 'int',
-        'razones' => '\FicoscoreV2\Client\Model\CatalogoRazones[]'
+        'razones' => '\FS\MX\Client\Model\CatalogoRazones[]'
     ];
     
     protected static $apihubFormats = [

@@ -1,6 +1,6 @@
 <?php
 
-namespace FicoscoreV2\Client\Model;
+namespace FS\MX\Client\Model;
 
 interface ModelInterface
 {

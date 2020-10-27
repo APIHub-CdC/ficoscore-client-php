@@ -1,9 +1,9 @@
 <?php
 
-namespace FicoscoreV2\Client\Model;
+namespace FS\MX\Client\Model;
 
 use \ArrayAccess;
-use \FicoscoreV2\Client\ObjectSerializer;
+use \FS\MX\Client\ObjectSerializer;
 
 class Error implements ModelInterface, ArrayAccess
 {

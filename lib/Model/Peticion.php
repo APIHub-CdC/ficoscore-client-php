@@ -1,9 +1,9 @@
 <?php
 
-namespace FicoscoreV2\Client\Model;
+namespace FS\MX\Client\Model;
 
 use \ArrayAccess;
-use \FicoscoreV2\Client\ObjectSerializer;
+use \FS\MX\Client\ObjectSerializer;
 
 class Peticion implements ModelInterface, ArrayAccess
 {
@@ -13,7 +13,7 @@ class Peticion implements ModelInterface, ArrayAccess
     
     protected static $apihubTypes = [
         'folio' => 'string',
-        'persona' => '\FicoscoreV2\Client\Model\Persona'
+        'persona' => '\FS\MX\Client\Model\Persona'
     ];
     
     protected static $apihubFormats = [

@@ -1,9 +1,9 @@
 <?php
 
-namespace FicoscoreV2\Client\Model;
+namespace FS\MX\Client\Model;
 
 use \ArrayAccess;
-use \FicoscoreV2\Client\ObjectSerializer;
+use \FS\MX\Client\ObjectSerializer;
 
 class Domicilio implements ModelInterface, ArrayAccess
 {
@@ -16,12 +16,12 @@ class Domicilio implements ModelInterface, ArrayAccess
         'colonia_poblacion' => 'string',
         'delegacion_municipio' => 'string',
         'ciudad' => 'string',
-        'estado' => '\FicoscoreV2\Client\Model\CatalogoEstados',
+        'estado' => '\FS\MX\Client\Model\CatalogoEstados',
         'cp' => 'string',
         'fecha_residencia' => 'string',
         'numero_telefono' => 'string',
-        'tipo_domicilio' => '\FicoscoreV2\Client\Model\CatalogoTipoDomicilio',
-        'tipo_asentamiento' => '\FicoscoreV2\Client\Model\CatalogoTipoAsentamiento',
+        'tipo_domicilio' => '\FS\MX\Client\Model\CatalogoTipoDomicilio',
+        'tipo_asentamiento' => '\FS\MX\Client\Model\CatalogoTipoAsentamiento',
         'fecha_registro_domicilio' => 'string',
         'tipo_alta_domicilio' => 'int',
         'id_domicilio' => 'string'

@@ -1,6 +1,6 @@
 <?php
 
-namespace FicoscoreV2\Client\Api;
+namespace FS\MX\Client\Api;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
@@ -8,12 +8,12 @@ use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\MultipartStream;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\RequestOptions;
-use FicoscoreV2\Client\ApiException;
-use FicoscoreV2\Client\Configuration;
-use FicoscoreV2\Client\HeaderSelector;
-use FicoscoreV2\Client\ObjectSerializer;
+use FS\MX\Client\ApiException;
+use FS\MX\Client\Configuration;
+use FS\MX\Client\HeaderSelector;
+use FS\MX\Client\ObjectSerializer;
 
-class FICOScoreApi
+class FSApi
 {
     
     protected $client;
@@ -45,7 +45,7 @@ class FICOScoreApi
     
     public function getReporteWithHttpInfo($x_api_key, $username, $password, $body)
     {
-        $returnType = '\FicoscoreV2\Client\Model\Respuesta';
+        $returnType = '\FS\MX\Client\Model\Respuesta';
         $request = $this->getReporteRequest($x_api_key, $username, $password, $body);
         try {
             $options = $this->createHttpClientOption();
@@ -91,7 +91,7 @@ class FICOScoreApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\FicoscoreV2\Client\Model\Respuesta',
+                        '\FS\MX\Client\Model\Respuesta',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -99,7 +99,7 @@ class FICOScoreApi
                 case 400:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\FicoscoreV2\Client\Model\Errores',
+                        '\FS\MX\Client\Model\Errores',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -107,7 +107,7 @@ class FICOScoreApi
                 case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\FicoscoreV2\Client\Model\Errores',
+                        '\FS\MX\Client\Model\Errores',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -115,7 +115,7 @@ class FICOScoreApi
                 case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\FicoscoreV2\Client\Model\Errores',
+                        '\FS\MX\Client\Model\Errores',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -123,7 +123,7 @@ class FICOScoreApi
                 case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\FicoscoreV2\Client\Model\Errores',
+                        '\FS\MX\Client\Model\Errores',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -131,7 +131,7 @@ class FICOScoreApi
                 case 429:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\FicoscoreV2\Client\Model\Errores',
+                        '\FS\MX\Client\Model\Errores',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -139,7 +139,7 @@ class FICOScoreApi
                 case 500:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\FicoscoreV2\Client\Model\Errores',
+                        '\FS\MX\Client\Model\Errores',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -161,7 +161,7 @@ class FICOScoreApi
     
     public function getReporteAsyncWithHttpInfo($x_api_key, $username, $password, $body)
     {
-        $returnType = '\FicoscoreV2\Client\Model\Respuesta';
+        $returnType = '\FS\MX\Client\Model\Respuesta';
         $request = $this->getReporteRequest($x_api_key, $username, $password, $body);
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
