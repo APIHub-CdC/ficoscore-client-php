@@ -1,7 +1,7 @@
 <?php
 
-namespace FicoscoreV2\Client\Model;
-use \FicoscoreV2\Client\ObjectSerializer;
+namespace FS\MX\Client\Model;
+use \FS\MX\Client\ObjectSerializer;
 
 class CatalogoEstados
 {

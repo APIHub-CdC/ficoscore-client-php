@@ -1,9 +1,9 @@
 <?php
 
-namespace FicoscoreV2\Client\Model;
+namespace FS\MX\Client\Model;
 
 use \ArrayAccess;
-use \FicoscoreV2\Client\ObjectSerializer;
+use \FS\MX\Client\ObjectSerializer;
 
 class Persona implements ModelInterface, ArrayAccess
 {
@@ -20,13 +20,13 @@ class Persona implements ModelInterface, ArrayAccess
         'rfc' => 'string',
         'curp' => 'string',
         'nacionalidad' => 'string',
-        'residencia' => '\FicoscoreV2\Client\Model\CatalogoResidencia',
-        'estado_civil' => '\FicoscoreV2\Client\Model\CatalogoEstadoCivil',
-        'sexo' => '\FicoscoreV2\Client\Model\CatalogoSexo',
+        'residencia' => '\FS\MX\Client\Model\CatalogoResidencia',
+        'estado_civil' => '\FS\MX\Client\Model\CatalogoEstadoCivil',
+        'sexo' => '\FS\MX\Client\Model\CatalogoSexo',
         'clave_elector_ife' => 'string',
         'numero_dependientes' => 'int',
         'fecha_defuncion' => 'string',
-        'domicilio' => '\FicoscoreV2\Client\Model\Domicilio'
+        'domicilio' => '\FS\MX\Client\Model\Domicilio'
     ];
     
     protected static $apihubFormats = [

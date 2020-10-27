@@ -1,6 +1,6 @@
 <?php
 
-namespace FicoscoreV2\Client;
+namespace FS\MX\Client;
 
 use \Exception;
 
